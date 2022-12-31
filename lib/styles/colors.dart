@@ -5,7 +5,7 @@ const Color kColorWhite=Colors.white;
 const Color kColorBlue=Color(0xff556DFB);
 const Color kColorLight=Colors.lightGreenAccent;
 const Color kColorDarkBlue=Color(0xff0E0121);
-const Color kColorBackground=Colors.white;
+const Color kColorBackground=Color(0xffF5F5F5);
 
 const Color kColor1=Color(0xff5edbae);
 const Color kColor2=Color(0xff9747FF);
