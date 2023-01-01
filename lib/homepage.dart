@@ -1,9 +1,13 @@
+
 import 'package:electric_invoice/widgets/cardtickets.dart';
 import 'package:electric_invoice/widgets/customappbar.dart';
 import 'package:electric_invoice/widgets/custominvoicedropdown.dart';
 import 'package:electric_invoice/widgets/customtotalsalescard.dart';
+import 'package:electric_invoice/widgets/customnavbar.dart';
 import 'package:electric_invoice/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:electric_invoice/widgets/cardwithhiddenpart.dart';
+import 'package:electric_invoice/widgets/graphscreen.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -13,10 +17,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
   @override
   String? saleCardDropDownSelectedValue;
   String? invoiceDropDownSelectedValue;
+
   bool ishidden=true;
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context).size;
@@ -52,10 +58,12 @@ class _HomePageState extends State<HomePage> {
                 CardTicketFrame(),
                 SizedBox(height: 24,),
                 Container( width: 318, height: 343,
-                  child: Container(color: Colors.lightGreenAccent),),
+                  child:GraphScreen(),
+
+                ),
                 SizedBox(height: 24,),
                 CustomInvoiceDropDown(cardDropDownImage: 'images/dropdown.png',
-                    cardDropDown: ['Invoide ','Test 1'],
+                    cardDropDown: ['Invoice ','Ticket List','Sales Notes list','Quotation list'],
                     selectedValue: invoiceDropDownSelectedValue,
                     dropdownChanged: (value){
                         setState(() {
@@ -83,212 +91,39 @@ class _HomePageState extends State<HomePage> {
                     ishidden=!ishidden;
                   });
                   },
+                  dropDown1ValueSelected: (value){setState(() {
+                    print(value);
+
+                  });},
+
+                  dropDown1list: ['A4','Ticket', 'XML','CDR'],
+                  dropDown1itemicon:'images/savesign.png',
+                  dropDown1ValueChanged: '',
+                  dropDown2ValueChanged: '',
+                  dropDown2ValueSelected: (value){},
+                  dropDown2list: [
+                    ['images/DropDublicate.png','Duplicate Invoice'],
+                  ['images/dropTicket.png','Convert to Ticket'],
+                  ['images/dropsalesnote.png', 'Convert to Sales Note'],
+                  ['images/dropreferralguide.png','Convert to Referral Guide'],
+                  ['images/dropcreditnote.png','Create Credit Note'],
+                    ['images/dropdebitnote.png','Create Debit Note'],
+                    ['images/dropwhatsapp.png','Send via WhatsApp'],
+                  ],
+
                 ),
                 SizedBox(height: 50,),
               ],
             ),
           ),
-        )
+        ),
+      bottomNavigationBar: CustomNavbar(),
     );
   }
 }
 
-class CardWithHiddenPart extends StatelessWidget {
-  const CardWithHiddenPart({
-    required this.id,
-    required this.no,
-    required this.clientName,
-    required this.date,
-    required this.time,
-    required this.total,
-    required this.operationType,
-    required this.documentType,
-    required this.tags,
-    required this.hidden,
-    required this.showMore,
-    Key? key,
-  }) : super(key: key);
-  final String id;
-  final String no;
-  final String clientName;
-  final String date;
-  final String time;
-  final String total;
-  final bool hidden;
-  final String operationType;
-  final String documentType;
-  final String tags;
-  final VoidCallback showMore;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: kColorWhite,
-      ),
-      child:Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(id,
-                  style: TextStyle(
-                    color: kColorBlue,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),),
-                  SizedBox(height: 8,),
-                  Row(
-                    children: [
-                      Text('RUC: ', style: TextStyle(
-                        color: kColorGrey,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),),
-                      Text(no,  style: TextStyle(
-                        color: kColorBlue,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),),
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  Text('Client FullName', style: TextStyle(
-                    color: kColorGrey,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                  ),),
-                  SizedBox(height: 6,),
-                  Text(clientName, style: TextStyle(
-                    color: kColorBlue,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),),
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 37,
-                        width: 62,
-                        color: kColorLight,
-                      ),
-                      SizedBox(width: 12,),
-                      Container(
-                        height: 37,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          border: Border.all(color: kColor9)
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 9, vertical: 10),
-                          child: Image.asset('images/dropdown.png',
-                            color: kColorBlue),
-                        ),
-                      ),
-                    ],
-                  ),SizedBox(height: 20,),
-                  Text(date,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: kColorGrey,
-                  ),),
-                  SizedBox(height: 6,),
-                  Text(time,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: kColorGrey,
-                    ),),
-                  SizedBox(height: 12,),
-                  Text('Total',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                      color: kColorGrey,
-                    ),),
-                  SizedBox(height: 6,),
-                  Text('\$ $total',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: kColorBlue,
-                    ),),
-                ],
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: showMore,
-            child: Container(
-              width: double.infinity,
-              height: 10,
-              child: Image.asset( hidden? 'images/dropdown.png': 'images/dropup.png',
-                color:hidden? kColorBlue: kColorGrey,),
-            ),
-          ),
-          SizedBox(height: 20,),
-          Visibility(
-              visible: !hidden,
-              child: Column(
-            children: [
-              CardHiidenPart(title: 'Operation Type:',
-                  value: operationType),
-              SizedBox(height: 10,),
-              CardHiidenPart(title: 'Document Type:',
-              value: documentType),
-              SizedBox(height: 10,),
-              CardHiidenPart(title: 'Tags:',
-                  value: tags),
 
 
-            ],
-          )
-
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CardHiidenPart extends StatelessWidget {
-  const CardHiidenPart({
-    required this.title,
-    required this.value,
-    Key? key,
-  }) : super(key: key);
-  final String title;
-  final String value;
-  @override
-  Widget build(BuildContext context) {
-    return Row(children: [
-      Container(
-        width: 160,
-        child: Text(title,style: TextStyle(
-          color: kColorGrey,
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),),
-      ),
-
-      Text(value,style: TextStyle(
-        color: kColorBlue,
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-      ),),
-    ],);
-  }
-}
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({

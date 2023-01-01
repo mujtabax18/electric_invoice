@@ -70,52 +70,70 @@ class _CustomTotalSalesCardState extends State<CustomTotalSalesCard> {
               ],),
             ],
           ),
-     DropdownButton(
-       borderRadius: BorderRadius.all(Radius.circular(8)),
-         onChanged: widget.dropdownChanged,
-     items: widget.cardDropDown
-         .map((item) =>
-         DropdownMenuItem<String>(
+          DropdownButtonHideUnderline(
+            child: DropdownButton2(
+              selectedItemBuilder: (BuildContext context) {
+                return widget.cardDropDown.map((item) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: Text(item, style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: kColorWhite,
+                    ),),
+                  );
+                }).toList();
+              },
+              hint: Text(
+                widget.cardDropDown.first,
+                style: TextStyle(
+                  fontSize: 12,
+                  color:kColorWhite,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              items: widget.cardDropDown
+                  .map((item) =>
+                  DropdownMenuItem<String>(
+                    alignment: Alignment.centerLeft,
+                    value: item,
+                    enabled: item==widget.selectedValue? false:true,
+                    child: Text(
+                      item,
+                      style: item==widget.cardDropDown.last? const TextStyle(
+                        fontSize: 12,
+                        color: kColorBlue,
+                        fontWeight: FontWeight.w600,
+                      ): item==widget.selectedValue? const TextStyle(
+                        fontSize: 12,
+                        color: kColorGrey,
+                        fontWeight: FontWeight.w600,
+                      ):const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      )
+                      ,
+                    ),
+                  ))
+                  .toList(),
+              iconSize: 10,
+              iconEnabledColor: kColorWhite,
+              iconOnClick: ImageIcon(AssetImage('images/dropup.png')),
+              icon: ImageIcon(AssetImage('images/dropdown.png')),
+              value: widget.selectedValue,
+              onChanged: widget.dropdownChanged,
+              buttonHeight: 40,
+              buttonWidth: 100,
+              itemHeight: 40,
+            ),
+          ),
 
-           value: item,
-           child: Text(
-             item,
-             style: item==widget.cardDropDown.last? const TextStyle(
-               fontSize: 12,
-               color: kColorBlue,
-               fontWeight: FontWeight.w600,
-             ): item==widget.cardDropDown.first? const TextStyle(
-               fontSize: 12,
-               color: kColorGrey,
-               fontWeight: FontWeight.w600,
-             ):const TextStyle(
-               fontSize: 12,
-               fontWeight: FontWeight.w600,
-             )
-             ,
-           ),
-         ))
-         .toList(),
-        icon: SizedBox(
-          width: 8,
-          child: Image.asset(widget.cardDropDownImage),
-        ),
-       value:widget.selectedValue,
-       hint: Text('${widget.cardDropDown.first}  ',
-         style: TextStyle(
-           color: kColorWhite,
-           fontWeight: FontWeight.w600,
-           fontSize: 12
-         ),
-       ),
-       underline:SizedBox(),
-       isExpanded:false,
-
-
-     )
 
         ],
       ),
     );
   }
 }
+
+
+
