@@ -58,11 +58,12 @@ class _HomePageState extends State<HomePage> {
                 CardTicketFrame(),
                 SizedBox(height: 24,),
                 Container( width: 318, height: 343,
-                  child:GraphScreen(),
+                  child:Container( color: Colors.red,),
 
                 ),
                 SizedBox(height: 24,),
-                CustomInvoiceDropDown(cardDropDownImage: 'images/dropdown.png',
+                CustomInvoiceDropDown(
+                    cardDropDownImage: 'images/dropdown.png',
                     cardDropDown: ['Invoice ','Ticket List','Sales Notes list','Quotation list'],
                     selectedValue: invoiceDropDownSelectedValue,
                     dropdownChanged: (value){
@@ -91,15 +92,11 @@ class _HomePageState extends State<HomePage> {
                     ishidden=!ishidden;
                   });
                   },
-                  dropDown1ValueSelected: (value){setState(() {
-                    print(value);
-
-                  });},
-
                   dropDown1list: ['A4','Ticket', 'XML','CDR'],
                   dropDown1itemicon:'images/savesign.png',
                   dropDown1ValueChanged: '',
                   dropDown2ValueChanged: '',
+                  dropDown1ValueSelected: (value){},
                   dropDown2ValueSelected: (value){},
                   dropDown2list: [
                     ['images/DropDublicate.png','Duplicate Invoice'],
