@@ -125,6 +125,11 @@ class _CustomTotalSalesCardState extends State<CustomTotalSalesCard> {
               buttonHeight: 40,
               buttonWidth: 100,
               itemHeight: 40,
+              dropdownElevation: 1,
+              dropdownDecoration: BoxDecoration(
+
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
           ),
 

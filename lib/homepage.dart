@@ -7,7 +7,8 @@ import 'package:electric_invoice/widgets/customnavbar.dart';
 import 'package:electric_invoice/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:electric_invoice/widgets/cardwithhiddenpart.dart';
-import 'package:electric_invoice/widgets/graphscreen.dart';
+import 'package:electric_invoice/widgets/linechartest.dart';
+import 'package:electric_invoice/model/chartdatamodel.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,49 @@ class _HomePageState extends State<HomePage> {
   @override
   String? saleCardDropDownSelectedValue;
   String? invoiceDropDownSelectedValue;
+  int _navindex=0;
+
+  //Drop Down Lists
+  List<ChartData> chartData3 = [
+    ChartData(2010, 37),
+    ChartData(2011 , 24),
+    ChartData(2012, 48),
+    ChartData(2013 , 49),
+    ChartData(2014 , 70)
+  ];
+  List<ChartData> chartData2 = [
+    ChartData(2010, 27),
+    ChartData(2011 , 4),
+    ChartData(2012, 28),
+    ChartData(2013 , 29),
+    ChartData(2014 , 40)
+  ];
+  List<ChartData> chartData1 = [
+    ChartData(2010, 37),
+    ChartData(2011 , 14),
+    ChartData(2012, 38),
+    ChartData(2013 , 29),
+    ChartData(2014 , 50)
+  ];
+  List<ChartData> chartData4 = [
+    ChartData(2010, 35),
+    ChartData(2011 , 13),
+    ChartData(2012, 34),
+    ChartData(2013 , 27),
+    ChartData(2014 , 40)
+  ];
+  List<String> totalSalesCardDropDownList=['Last Week','This Month', 'Last Month','+ Custom'];
+  List<String> downloadDropDownList=['A4','Ticket', 'XML','CDR'];
+  List convertDropDownList=[
+    ['images/DropDublicate.png','Duplicate Invoice'],
+    ['images/dropTicket.png','Convert to Ticket'],
+    ['images/dropsalesnote.png', 'Convert to Sales Note'],
+    ['images/dropreferralguide.png','Convert to Referral Guide'],
+    ['images/dropcreditnote.png','Create Credit Note'],
+    ['images/dropdebitnote.png','Create Debit Note'],
+    ['images/dropwhatsapp.png','Send via WhatsApp'],
+  ];
+  List<String> invoiceDropDownList=['Invoice ','Ticket List','Sales Notes list','Quotation list'];
 
   bool ishidden=true;
   Widget build(BuildContext context) {
@@ -29,11 +73,11 @@ class _HomePageState extends State<HomePage> {
     return  Scaffold(
       backgroundColor: kColorBackground,
         body: SafeArea(
-
           child: Padding(
-            padding: const EdgeInsets.only(top: 20, right: 20, left: 20,),
+            padding: const EdgeInsets.symmetric( horizontal: 20,),
             child: ListView(
               children: [
+                SizedBox(height: 20,),
                 CustomAppBar(
                   mediaQuery:mediaQuery,
                   name: 'Adam Smith',
@@ -45,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 16,),
                 CustomTotalSalesCard(cardImage: 'images/upword.png',
                     totalSales: ' 3487.00',
-                    cardDropDown: ['Last Week','This Month', 'Last Month','+ Custom'],
+                    cardDropDown: totalSalesCardDropDownList,
                     selectedValue: saleCardDropDownSelectedValue,
                   cardDropDownImage: 'images/dropdown.png',
                   dropdownChanged: (value){
@@ -58,13 +102,31 @@ class _HomePageState extends State<HomePage> {
                 CardTicketFrame(),
                 SizedBox(height: 24,),
                 Container( width: 318, height: 343,
-                  child:Container( color: Colors.red,),
+                  decoration: BoxDecoration(
+                    color: kColorWhite,
+                    borderRadius: BorderRadius.circular(20),
+
+                  ),
+                  child:Container( color: Colors.transparent,
+                    child: Spline_test(
+                      chartData1: chartData1,
+                      chartData2: chartData2,
+                        chartData3: chartData3,
+                       chartData4: chartData4,
+                      color1: kColor1,
+                      color2: kColor4,
+                      color3: kColor6,
+                      color4: kColor10,
+                      labelList: ['Invoice', 'Credit notes',''
+                          'Sale notes','Tickets'],
+
+                    ), ),
 
                 ),
                 SizedBox(height: 24,),
                 CustomInvoiceDropDown(
-                    cardDropDownImage: 'images/dropdown.png',
-                    cardDropDown: ['Invoice ','Ticket List','Sales Notes list','Quotation list'],
+
+                    cardDropDown: invoiceDropDownList,
                     selectedValue: invoiceDropDownSelectedValue,
                     dropdownChanged: (value){
                         setState(() {
@@ -92,29 +154,79 @@ class _HomePageState extends State<HomePage> {
                     ishidden=!ishidden;
                   });
                   },
-                  dropDown1list: ['A4','Ticket', 'XML','CDR'],
-                  dropDown1itemicon:'images/savesign.png',
-                  dropDown1ValueChanged: '',
-                  dropDown2ValueChanged: '',
-                  dropDown1ValueSelected: (value){},
-                  dropDown2ValueSelected: (value){},
-                  dropDown2list: [
-                    ['images/DropDublicate.png','Duplicate Invoice'],
-                  ['images/dropTicket.png','Convert to Ticket'],
-                  ['images/dropsalesnote.png', 'Convert to Sales Note'],
-                  ['images/dropreferralguide.png','Convert to Referral Guide'],
-                  ['images/dropcreditnote.png','Create Credit Note'],
-                    ['images/dropdebitnote.png','Create Debit Note'],
-                    ['images/dropwhatsapp.png','Send via WhatsApp'],
-                  ],
+                  downloadDropDownlist: downloadDropDownList,
+                  downloadDropDownitemicon:'images/savesign.png',
+                  downloadDropDownValueChanged: '',
+                  convertDropDownValueChanged: '',
+                  downloadDropDownValueSelected: (value){},
+                  convertDropDownValueSelected: (value){},
+                  convertDropDownList: convertDropDownList,
 
                 ),
-                SizedBox(height: 50,),
+                SizedBox(height: 12,),
+                CardWithHiddenPart(
+                  id: 'F001-48',
+                  no: '20604008977',
+                  clientName: 'Canbe A Long...',
+                  date: '12-12-2022',
+                  time: '12.03 AM',
+                  total: '32987.22',
+                  operationType: 'Operation Type',
+                  documentType: 'Document Type',
+                  tags: 'Tags',
+                  hidden: ishidden,
+                  showMore: (){
+                    setState(() {
+                      ishidden=!ishidden;
+                    });
+                  },
+                  downloadDropDownlist: downloadDropDownList,
+                  downloadDropDownitemicon:'images/savesign.png',
+                  downloadDropDownValueChanged: '',
+                  convertDropDownValueChanged: '',
+                  downloadDropDownValueSelected: (value){},
+                  convertDropDownValueSelected: (value){},
+                  convertDropDownList: convertDropDownList,
+
+                ),
+                SizedBox(height: 12,),
+                CardWithHiddenPart(
+                  id: 'F001-48',
+                  no: '20604008977',
+                  clientName: 'Canbe A Long...',
+                  date: '12-12-2022',
+                  time: '12.03 AM',
+                  total: '32987.22',
+                  operationType: 'Operation Type',
+                  documentType: 'Document Type',
+                  tags: 'Tags',
+                  hidden: ishidden,
+                  showMore: (){
+                    setState(() {
+                      ishidden=!ishidden;
+                    });
+                  },
+                  downloadDropDownlist: downloadDropDownList,
+                  downloadDropDownitemicon:'images/savesign.png',
+                  downloadDropDownValueChanged: '',
+                  convertDropDownValueChanged: '',
+                  downloadDropDownValueSelected: (value){},
+                  convertDropDownValueSelected: (value){},
+                  convertDropDownList: convertDropDownList,
+
+                ),
+
+                SizedBox(height: 30,),
               ],
             ),
           ),
         ),
-      bottomNavigationBar: CustomNavbar(),
+      bottomNavigationBar: CustomNavbar(
+        selecteditem: _navindex,
+          onTap: (value){setState(() {
+            _navindex=value;
+          });},
+      ),
     );
   }
 }

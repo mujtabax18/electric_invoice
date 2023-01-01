@@ -14,13 +14,13 @@ class CardWithHiddenPart extends StatefulWidget {
     required this.tags,
     required this.hidden,
     required this.showMore,
-    required this.dropDown1ValueSelected,
-    required this.dropDown1list,
-    required this.dropDown1ValueChanged,
-    required this.dropDown2ValueSelected,
-    required this.dropDown2list,
-    required this.dropDown2ValueChanged,
-    required this.dropDown1itemicon,
+    required this.downloadDropDownValueSelected,
+    required this.downloadDropDownlist,
+    required this.downloadDropDownValueChanged,
+    required this.convertDropDownValueSelected,
+    required this.convertDropDownList,
+    required this.convertDropDownValueChanged,
+    required this.downloadDropDownitemicon,
 
 
     Key? key,
@@ -37,13 +37,13 @@ class CardWithHiddenPart extends StatefulWidget {
   final String tags;
   final VoidCallback showMore;
 
-  final List dropDown2list;
-  final List dropDown1list;
-  final String dropDown1itemicon;
-  final Function(Object?) dropDown1ValueSelected;
-  final Function(Object?) dropDown2ValueSelected;
-  final String dropDown1ValueChanged;
-  final String dropDown2ValueChanged;
+  final List convertDropDownList;
+  final List downloadDropDownlist;
+  final String downloadDropDownitemicon;
+  final Function(Object?) downloadDropDownValueSelected;
+  final Function(Object?) convertDropDownValueSelected;
+  final String downloadDropDownValueChanged;
+  final String convertDropDownValueChanged;
 
 
 
@@ -114,10 +114,10 @@ class _CardWithHiddenPartState extends State<CardWithHiddenPart> {
                         decoration: BoxDecoration(
                         ),
 
-                        child: CustomDropDown1(widget: widget, ),
+                        child: CustomDownloadDropDown(widget: widget, ),
                       ),
                       SizedBox(width: 12,),
-                      CustomDropDown2(widget: widget, ),],),
+                      CustomConvertDropDown(widget: widget, ),],),
                   SizedBox(height: 20,),
                   Text(widget.date,
                     style: TextStyle(
@@ -184,8 +184,8 @@ class _CardWithHiddenPartState extends State<CardWithHiddenPart> {
   }
 }
 
-class CustomDropDown2 extends StatefulWidget {
-  const CustomDropDown2({
+class CustomConvertDropDown extends StatefulWidget {
+  const CustomConvertDropDown({
     Key? key,
     required this.widget,
 
@@ -194,10 +194,10 @@ class CustomDropDown2 extends StatefulWidget {
   final CardWithHiddenPart widget;
 
   @override
-  State<CustomDropDown2> createState() => _CustomDropDown2State();
+  State<CustomConvertDropDown> createState() => _CustomConvertDropDownState();
 }
 
-class _CustomDropDown2State extends State<CustomDropDown2> {
+class _CustomConvertDropDownState extends State<CustomConvertDropDown> {
   @override
   bool clicked1=false;
   Widget build(BuildContext context) {
@@ -215,23 +215,30 @@ class _CustomDropDown2State extends State<CustomDropDown2> {
             clicked1=false;
           });
         },
-        onSelected: widget.widget.dropDown2ValueSelected,
+        shape:  RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.0),
+          ),
+        ),
+        onSelected: widget.widget.convertDropDownValueSelected,
         itemBuilder: (BuildContext context) {
-          return List.generate(widget.widget.dropDown2list.length, (index) {
+          return List.generate(widget.widget.convertDropDownList.length, (index) {
             return PopupMenuItem(
               onTap:(){
                 setState(() {
                   clicked1=false;
                 });
               },
-              height: 20,
-              padding: EdgeInsets.only(top: 16, left: 16),
-              value: widget.widget.dropDown2list[index][1],
-              child: Row(children: [
-                ImageIcon(AssetImage(widget.widget.dropDown2list[index][0])
+              height: 40,
+              padding: EdgeInsets.only(top: 8, bottom: 8, left: 16),
+              value: widget.widget.convertDropDownList[index][1],
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                ImageIcon(AssetImage(widget.widget.convertDropDownList[index][0])
                     ,color:kColorBlue, size: 15),
                 SizedBox(width: 10,),
-                Text(widget.widget.dropDown2list[index][1],style: TextStyle(
+                Text(widget.widget.convertDropDownList[index][1],style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),),
@@ -243,11 +250,12 @@ class _CustomDropDown2State extends State<CustomDropDown2> {
             width: 30,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
-                border: Border.all(color: kColor9)
+                border: Border.all(color: kColor9.withAlpha(30)),
+              color: !clicked1?Colors.transparent:kColorGrey,
             ),
             child:
             Container(
-              color: !clicked1?Colors.transparent:kColorGrey,
+
               padding: EdgeInsets.symmetric(vertical: 10,horizontal: 8),
               child: Image.asset( !clicked1?'images/dropdown.png':'images/dropup.png', color:!clicked1? kColorBlue:kColorWhite,),
             )
@@ -260,8 +268,8 @@ class _CustomDropDown2State extends State<CustomDropDown2> {
 }
 
 
-class CustomDropDown1 extends StatefulWidget {
-  const CustomDropDown1({
+class CustomDownloadDropDown extends StatefulWidget {
+  const CustomDownloadDropDown({
     Key? key,
     required this.widget,
 
@@ -270,10 +278,10 @@ class CustomDropDown1 extends StatefulWidget {
   final CardWithHiddenPart widget;
 
   @override
-  State<CustomDropDown1> createState() => _CustomDropDown1State();
+  State<CustomDownloadDropDown> createState() => _CustomDownloadDropDownState();
 }
 
-class _CustomDropDown1State extends State<CustomDropDown1> {
+class _CustomDownloadDropDownState extends State<CustomDownloadDropDown> {
   @override
   bool clicked=false;
   Widget build(BuildContext context) {
@@ -290,27 +298,31 @@ class _CustomDropDown1State extends State<CustomDropDown1> {
             clicked=false;
           });
         },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+        shape:  RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(8.0),
+          ),
+        ),
         onSelected:
-        widget.widget.dropDown1ValueSelected,
+        widget.widget.downloadDropDownValueSelected,
 
         offset: Offset(0, 40),
         itemBuilder: (BuildContext context) {
-          return List.generate(widget.widget.dropDown1list.length, (index) {
+          return List.generate(widget.widget.downloadDropDownlist.length, (index) {
             return PopupMenuItem(
               onTap:(){
                 setState(() {
                   clicked=false;
                 });
               },
-              height: 20,
-              padding: EdgeInsets.only(top: 16, left: 16),
-              value: widget.widget.dropDown1list[index],
+              height: 40,
+              padding: EdgeInsets.only(top: 8, left: 16,bottom: 8),
+              value: widget.widget.downloadDropDownlist[index],
               child: Row(children: [
-                ImageIcon(AssetImage(widget.widget.dropDown1itemicon)
+                ImageIcon(AssetImage(widget.widget.downloadDropDownitemicon)
                     ,color:kColorBlue, size: 15),
                 SizedBox(width: 10,),
-                Text('Download ${widget.widget.dropDown1list[index]}',style: TextStyle(
+                Text('Download ${widget.widget.downloadDropDownlist[index]}',style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),),

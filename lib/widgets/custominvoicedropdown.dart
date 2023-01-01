@@ -3,27 +3,28 @@ import 'package:electric_invoice/styles/colors.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 class CustomInvoiceDropDown extends StatefulWidget {
   const CustomInvoiceDropDown({Key? key,
-    required this.cardDropDownImage,
+
     required this.cardDropDown,
      this.selectedValue=null,
     required this.dropdownChanged
   }) : super(key: key);
   final Function(String?) dropdownChanged;
   final List<String> cardDropDown;
-  final String cardDropDownImage;
+
   final String? selectedValue;
   @override
   State<CustomInvoiceDropDown> createState() => _CustomInvoiceDropDownState();
 }
 
 class _CustomInvoiceDropDownState extends State<CustomInvoiceDropDown> {
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 130,
+          width: 124,
           height: 24,
           child:  DropdownButtonHideUnderline(
             child: DropdownButton2(
@@ -76,6 +77,10 @@ class _CustomInvoiceDropDownState extends State<CustomInvoiceDropDown> {
               buttonHeight: 40,
               buttonWidth: 130,
               itemHeight: 30,
+              dropdownElevation: 1,
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8)
+              ),
             ),
           ),
         ),
